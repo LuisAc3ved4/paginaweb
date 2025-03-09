@@ -1,0 +1,26 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: tienda
+      MYSQL_USER: luis
+      MYSQL_PASSWORD: 123
+
+    ports:
+      - "3306:3306" 
+    volumes:
+      - "./mysql/:/var/lib/mysql"
+
+  phpmyadmin:
+    image : phpmyadmin/phpmyadmin:latest
+    restart: always
+
+    ports:
+     - "8080:80"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      PMA_HOST: db
+      PMA_USER: luis
+      PMA_PASSWORD: 123
