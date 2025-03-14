@@ -26,8 +26,6 @@ const eliminar = async(id,boton)=>{
     }
 }
 
-
-
 document.addEventListener("DOMContentLoaded",()=>{
     const contenedorCards = document.getElementById("contenedor-cards");
     const formulario = document.getElementById("Formulario");
@@ -79,7 +77,6 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     }
     
-
     const crearProducto = async (evt)=>{
         evt.preventDefault();
         const nombre = nombreInput.value;
