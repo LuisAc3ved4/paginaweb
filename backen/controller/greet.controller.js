@@ -5,10 +5,4 @@ const saludarController = (req,res)=>{
     res.json(mensajSaludo);
 }
 
-//const despedirController = (req,res)=>{
-//    const mensajeAdios = despedir();
-//    res.json(mensajeAdios);
-//}
-
-
-module.exports = {saludarController};
+module.exports = {saludarController}
