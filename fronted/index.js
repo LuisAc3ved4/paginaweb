@@ -10,7 +10,6 @@ const eliminar = async(id,boton)=>{
             headers:{
                 "Content-Type": "application/json"
             },
-            // body:JSON.stringify({saludo:"Hola"})
         });
     if (response.status == 204){
         alert("Producto Eliminado correctamente");
