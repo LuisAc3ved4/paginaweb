@@ -12,6 +12,7 @@ class ProductService{
         return await ProductRepositoty.save(newProduct);
     }
     async update(id,data){
+        console.log({id,data});2
         await ProductRepositoty.update(id,data);
         return await ProductRepositoty.findOneBy({id});
     }
