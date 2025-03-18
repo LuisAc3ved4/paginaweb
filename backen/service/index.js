@@ -10,7 +10,7 @@ const app = express();
 //Middlewares
 app.use(express.json());
 app.use(cors());
-
+// Rutas
 app.use("/api/v1", ProductRoutes)
 
 AppDataSource.initialize().then(
