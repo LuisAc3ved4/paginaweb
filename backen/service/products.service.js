@@ -1,24 +1,31 @@
-const {ProductRepositoty} = require("../repositories/product.repository");
+const {ProductRepository} = require("../repositories/product.repository");
 
 class ProductService{
     async getAll(){
-        return await ProductRepositoty.find();
+        return await ProductRepository.find();
     }
+
     async getOneBy(id){
-        return await ProductRepositoty.findOneBy({id});
+        return await ProductRepository.findOneBy({
+            id
+        });
     }
-    async create(prooduct){
-        const newProduct = ProductRepositoty.create(product);
-        return await ProductRepositoty.save(newProduct);
+
+    async create(product){
+        const newProduct = ProductRepository.create(product);
+        return await ProductRepository.save(newProduct);
     }
+
     async update(id,data){
         console.log({id,data});2
-        await ProductRepositoty.update(id,data);
-        return await ProductRepositoty.findOneBy({id});
+        await ProductRepository.update(id,data);
+        return await ProductRepository.findOneBy({id});
     }
+
     async delete(id){
-        return await ProductRepositoty.delete({id});
+        return await ProductRepository.delete({id});
     }
+
 
 }
 
