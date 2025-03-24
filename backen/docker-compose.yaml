@@ -22,5 +22,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123
       PMA_HOST: db
-      PMA_USER: luis
+      PMA_USER: root
       PMA_PASSWORD: 123
