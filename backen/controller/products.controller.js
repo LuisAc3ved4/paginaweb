@@ -1,91 +1,74 @@
-const productsService = require("../service/products.service")
+const { ProductService } = require("../service/products.service")
 
 class ProductController{
     static async getAll(req,res){
-        try{
-            const products = await productsService.getAll();
+        try {
+            const products = await ProductService.getAll();
             res.status(200).json(products);
-        } catch (error){
-            res.status(500).json({message:error.message || "Ocurrio un \
-                error al leer los datos. Intenta de nueco mas tarde"});
+        } catch (error) {
+            res.status(500).json({message:error.message || "Ocurrio un error al leer los datos. Intenta de nuevo mas tarde"});
         }
     }
     static async getOneById(req,res){
         try {
             const { id } = req.params;
             if (!id) {
-                return res.status(400).json({ message: "ID no proporcionado." });
+                return res.status(400).json({ message: "ID de producto es requerido" });
             }
-
-            const product = await productsService.getOneById(id);
+            const product = await ProductService.getOneBy(id);
             if (!product) {
-                return res.status(404).json({ message: "Producto no encontrado." });
+                return res.status(404).json({ message: "Producto no encontrado" });
             }
-
-            res.status(200).json(product);
+            res.json(product);
         } catch (error) {
-            res.status(500).json({ message: error.message || "Ocurrió un error al obtener el producto." });
+            res.status(500).json({ message: "Error al obtener el producto", error });
         }
-    }
-    
 
+    }
     static async create(req,res){
         try {
-            const productData = req.body;
-            if (!productData || Object.keys(productData).length === 0) {
-                return res.status(400).json({ message: "Datos del producto no proporcionados." });
+            const body = req.body;
+            if (!body.nombre || !body.precio || !body.stock){
+                return res.status(400).json({ message: "Todos los campos son requeridos" });
             }
-
-            const newProduct = await productsService.create(productData);
+            const newProduct = await ProductService.create(req.body);
             res.status(201).json(newProduct);
         } catch (error) {
-            res.status(500).json({ message: error.message || "Ocurrió un error al crear el producto." });
+            res.status(500).json({ message: "Error al crear el producto", error });
         }
 
     }
-
     static async update(req,res){
         try {
             const { id } = req.params;
-            const productData = req.body;
-
-            if (!id || !productData || Object.keys(productData).length === 0) {
-                return res.status(400).json({ message: "ID o datos del producto no proporcionados." });
+            const body = req.body;
+            if (!body.nombre || !body.precio || !body.stock && !id){
+                return res.status(400).json({ message: "se necesita el id y un campo valido para actualizar" });
             }
-
-            const updatedProduct = await productsService.update(id, productData);
+            const updatedProduct = await ProductService.update(id, req.body);
             if (!updatedProduct) {
-                return res.status(404).json({ message: "Producto no encontrado." });
+                return res.status(404).json({ message: "Producto no encontrado" });
             }
-
             res.status(200).json(updatedProduct);
         } catch (error) {
-            res.status(500).json({ message: error.message || "Ocurrió un error al actualizar el producto." });
+            res.status(500).json({ message: "Error al actualizar el producto", error });
         }
-
     }
-
     static async delete(req,res){
         try {
             const { id } = req.params;
-            if (!id) {
-                return res.status(400).json({ message: "ID no proporcionado." });
+            if (!id){
+                return res.status(400).json({ message: "ID de producto es requerido" });
             }
-
-            const deletedProduct = await productsService.delete(id);
-            if (!deletedProduct) {
-                return res.status(404).json({ message: "Producto no encontrado." });
+            const result = await ProductService.delete(id);
+            if (result.affected === 0) {
+                return res.status(404).json({ message: "Producto no encontrado" });
             }
-
-            res.status(204).json(result); 
+            res.status(204).json(result);
         } catch (error) {
-            res.status(500).json({ message: error.message || "Ocurrió un error al eliminar el producto." });
+            res.status(500).json({ message: "Error al eliminar el producto", error });
         }
-
     }
-
 }
 
 module.exports = {ProductController}
-
-
