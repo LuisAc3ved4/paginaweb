@@ -1,8 +1,8 @@
-const { DataSouerce } = require("typeorm");
+const { DataSource } = require("typeorm");
 const { Product } = require("../models/models/products");
 require ("reflect-metadata");
 
-const AppDataSource = new DataSouerce({
+const AppDataSource = new DataSource({
     type:"mysql",
     host:"localhost",
     port:3306,
